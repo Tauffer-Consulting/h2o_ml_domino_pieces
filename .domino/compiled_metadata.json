@@ -132,6 +132,6 @@
             }
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/giupb/h2o_ml_pieces/tree/main/pieces/AutoMLPiece"
+        "source_url": "https://github.com/Tauffer-Consulting/h2o_ml_domino_pieces/tree/main/pieces/AutoMLPiece"
     }
 }
