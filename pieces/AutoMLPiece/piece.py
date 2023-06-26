@@ -51,14 +51,16 @@ class AutoMLPiece(BasePiece):
         aml.train(x=x, y=y, training_frame=df)
 
         # Get leader model
-        leader_model = aml.leaderboard['model_id'].as_data_frame()[1][0] if aml.leaderboard['model_id'].as_data_frame()[0][0] == ["model_id"] else aml.leaderboard['model_id'].as_data_frame()[0][0]
+        leader_model = aml.leaderboard['model_id'].as_data_frame()[1][0] if aml.leaderboard['model_id'].as_data_frame()[0][0] == "model_id" else aml.leaderboard['model_id'].as_data_frame()[0][0]
 
         # Save leader model
         if save_leader_model_type == "bin":
             bin_path_file = f"{self.results_path}/{leader_model}_bin"
+            mojo_path_file = None
             h2o.save_model(aml.leader, path=bin_path_file)
         if save_leader_model_type == "mojo":
             mojo_path_file = f"{self.results_path}/{leader_model}_mojo"
+            bin_path_file = None
             aml.leader.download_mojo(path=mojo_path_file)
         if save_leader_model_type == "bin_and_mojo":
             bin_path_file = f"{self.results_path}/{leader_model}_bin"
