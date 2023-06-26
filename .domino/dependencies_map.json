@@ -1,0 +1,13 @@
+{
+    "group0": {
+        "dependency": {
+            "dockerfile": "Dockerfile_1",
+            "requirements_file": null
+        },
+        "pieces": [
+            "AutoMLPiece"
+        ],
+        "secrets": [],
+        "source_image": "ghcr.io/giupb/h2o_ml_pieces:0.1.0-group0"
+    }
+}

@@ -1,0 +1,137 @@
+{
+    "AutoMLPiece": {
+        "name": "AutoMLPiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_1",
+            "requirements_file": null
+        },
+        "tags": [
+            "Example"
+        ],
+        "style": {
+            "node_label": "AutoML Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid fa-microchip",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This piece runs the AutoML H2O algorithm",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "type": "object",
+            "properties": {
+                "dataset_file_path": {
+                    "title": "Dataset File Path",
+                    "description": "The path to the dataset file. It can be a local path or a url path",
+                    "type": "string"
+                },
+                "target_column": {
+                    "title": "Target Column",
+                    "description": "The target column from dataset to be predicted",
+                    "type": "string"
+                },
+                "categorical_columns": {
+                    "title": "Categorical Columns",
+                    "description": "The list of categorical columns from dataset",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "remove_columns": {
+                    "title": "Remove Columns",
+                    "description": "The list of columns to be removed from dataset",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "split_percentage": {
+                    "title": "Split Percentage",
+                    "description": "The list of split percentage for train and test dataset",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "seed": {
+                    "title": "Seed",
+                    "description": "The random seed to be used",
+                    "default": 1,
+                    "type": "integer"
+                },
+                "max_models": {
+                    "title": "Max Models",
+                    "description": "The number of models to be trained",
+                    "default": 5,
+                    "type": "integer"
+                },
+                "max_runtime_secs": {
+                    "title": "Max Runtime Secs",
+                    "description": "The maximum runtime in seconds to be used",
+                    "default": 0,
+                    "type": "integer"
+                },
+                "save_leader_model_type": {
+                    "description": "The file type of model to be saved",
+                    "default": "mojo",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/SaveLeaderModelTypes"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "dataset_file_path",
+                "target_column"
+            ],
+            "definitions": {
+                "SaveLeaderModelTypes": {
+                    "title": "SaveLeaderModelTypes",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "bin",
+                        "mojo",
+                        "bin_and_mojo"
+                    ]
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "type": "object",
+            "properties": {
+                "bin_path_file": {
+                    "title": "Bin Path File",
+                    "description": "The path to the bin file",
+                    "format": "file-path",
+                    "type": "string"
+                },
+                "mojo_path_file": {
+                    "title": "Mojo Path File",
+                    "description": "The path to the mojo file",
+                    "format": "file-path",
+                    "type": "string"
+                }
+            }
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/giupb/h2o_ml_pieces/tree/main/pieces/AutoMLPiece"
+    }
+}
