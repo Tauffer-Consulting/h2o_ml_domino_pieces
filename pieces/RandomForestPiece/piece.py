@@ -83,14 +83,15 @@ class RandomForestPiece(BasePiece):
     
     def format_display_result_feature_importance(self, model_id, model_plots = None, varimp: pd.DataFrame = None,):
         varimp_markdown_table = varimp.to_markdown(index=False)
-        varimp_plot_figure_file_path = f"{self.results_path}/varimp_plot_{model_id}.png"
+        varimp_plot_figure_name = f"varimp_plot_{model_id}.png"
+        varimp_plot_figure_file_path = f"{self.results_path}/{varimp_plot_figure_name}"
         model_plots["varimp"]["plots"][model_id].figure().savefig(varimp_plot_figure_file_path, format="png")
         md_text = f"""
-### Feature importance table
+## Feature importance table
 {varimp_markdown_table}
 
-### Feature importance plot
-<img src="{varimp_plot_figure_file_path}" alt="varimp plot" width="600" height="400">
+## Feature importance plot
+<img src="./{varimp_plot_figure_name}" alt="varimp plot" width="600" height="400">
 
 """
         file_path = f"{self.results_path}/display_result_feature_importance.md"
