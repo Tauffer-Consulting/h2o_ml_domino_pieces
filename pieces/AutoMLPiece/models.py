@@ -3,7 +3,7 @@ from enum import Enum
 from pydantic import FilePath
 from typing import List
 
-class SaveLeaderModelTypes(Enum):
+class SaveFormat(Enum):
     bin = "bin"
     mojo = "mojo"
     bin_and_mojo = "bin_and_mojo"
@@ -43,8 +43,8 @@ class InputModel(BaseModel):
         description="The maximum runtime in seconds to be used"
 
     )
-    save_leader_model_type: SaveLeaderModelTypes = Field(
-        default=SaveLeaderModelTypes.mojo,
+    leader_model_save_format: SaveFormat = Field(
+        default=SaveFormat.mojo,
         description="The file type of model to be saved"
     )
 
