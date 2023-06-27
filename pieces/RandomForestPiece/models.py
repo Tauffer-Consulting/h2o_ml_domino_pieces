@@ -57,3 +57,7 @@ class OutputModel(BaseModel):
         default=None,
         description="The path to the mojo file"
     )
+    feature_importance: List[dict] = Field(
+        default=None,
+        description="The list of feature importance"
+    )

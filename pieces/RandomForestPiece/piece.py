@@ -55,19 +55,18 @@ class RandomForestPiece(BasePiece):
         if feature_importance:
             model_plots = model.explain(test, render=False) if split_percentage else model.explain(df, render=False)
             varimp = model.varimp(use_pandas=True)
+            varimp_dict = varimp.to_dict("records")
             self.format_display_result_feature_importance(model_id, model_plots, varimp)
         
         if not model_save_format:
-            return OutputModel()
+            return OutputModel(feature_importance=varimp_dict if feature_importance else None)
         
         # Save model
         if model_save_format == "bin":
             bin_path_file = f"{self.results_path}/{model_id}_bin"
-            mojo_path_file = None
             h2o.save_model(model, path=bin_path_file)
         if model_save_format == "mojo":
             mojo_path_file = f"{self.results_path}/{model_id}_mojo"
-            bin_path_file = None
             model.download_mojo(path=mojo_path_file)
         if model_save_format == "bin_and_mojo":
             bin_path_file = f"{self.results_path}/{model_id}_bin"
@@ -77,8 +76,9 @@ class RandomForestPiece(BasePiece):
 
         # Finally, results should return as an Output model
         return OutputModel(
-            bin_path_file=bin_path_file,
-            mojo_path_file=mojo_path_file
+            bin_path_file=bin_path_file if "bin" in model_save_format else None,
+            mojo_path_file=mojo_path_file if "mojo" in model_save_format else None,
+            feature_importance=varimp_dict if feature_importance else None,
         )
     
     def format_display_result_feature_importance(self, model_id, model_plots = None, varimp: pd.DataFrame = None,):
