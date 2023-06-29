@@ -8,9 +8,14 @@ def run_piece(
         categorical_columns: List[str] = None,
         remove_columns: List[str] = None,
         split_percentage: List[float] = None,
-        seed: int = 1,
-        model_parameters: dict = None,
-        feature_importance: bool = False,
+        seed: int = None,
+        ntrees: int = None,
+        max_depth: int = None,
+        min_rows: int = None,
+        sample_rate: float = None,
+        col_sample_rate_per_tree: float = None,
+        stopping_metric: str = None,
+        feature_importance: bool = None,
         model_save_format: str = None,
 ):
     

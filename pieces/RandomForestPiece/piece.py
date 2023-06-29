@@ -16,9 +16,19 @@ class RandomForestPiece(BasePiece):
         remove_columns = input_model.remove_columns
         split_percentage = input_model.split_percentage
         seed = input_model.seed
-        model_parameters = input_model.model_parameters
         feature_importance = input_model.feature_importance
         model_save_format = input_model.model_save_format
+
+        # Get the model parameters from input_model
+        model_parameters = {
+            "ntrees": input_model.ntrees,
+            "max_depth": input_model.max_depth,
+            "min_rows": input_model.min_rows,
+            "sample_rate": input_model.sample_rate,
+            "col_sample_rate_per_tree": input_model.col_sample_rate_per_tree,
+            "stopping_metric": input_model.stopping_metric,
+        }
+        model_id = input_model.model_id
 
         # Import dataset
         try:
@@ -39,8 +49,6 @@ class RandomForestPiece(BasePiece):
             for column in remove_columns:
                 x.remove(column)
         
-        # Create a Random Forest object
-        model_id = model_parameters.pop("model_id") if "model_id" in model_parameters.keys() else "random_forest_model"
         model = H2ORandomForestEstimator(model_id=model_id, **model_parameters)
     
         # Split data
@@ -63,21 +71,15 @@ class RandomForestPiece(BasePiece):
         
         # Save model
         if model_save_format == "bin":
-            bin_path_file = f"{self.results_path}/{model_id}_bin"
-            h2o.save_model(model, path=bin_path_file)
+            saved_file_path = f"{self.results_path}/{model_id}_bin"
+            h2o.save_model(model, path=saved_file_path)
         if model_save_format == "mojo":
-            mojo_path_file = f"{self.results_path}/{model_id}_mojo"
-            model.download_mojo(path=mojo_path_file)
-        if model_save_format == "bin_and_mojo":
-            bin_path_file = f"{self.results_path}/{model_id}_bin"
-            mojo_path_file = f"{self.results_path}/{model_id}_mojo"
-            h2o.save_model(model, path=bin_path_file)
-            model.download_mojo(path=mojo_path_file)
+            saved_file_path = f"{self.results_path}/{model_id}_mojo"
+            model.download_mojo(path=saved_file_path)
 
         # Finally, results should return as an Output model
         return OutputModel(
-            bin_path_file=bin_path_file if "bin" in model_save_format else None,
-            mojo_path_file=mojo_path_file if "mojo" in model_save_format else None,
+            saved_file_path=saved_file_path if model_save_format else None,
             feature_importance=varimp_dict if feature_importance else None,
         )
     
