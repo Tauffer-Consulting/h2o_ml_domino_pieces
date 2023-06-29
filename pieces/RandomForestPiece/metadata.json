@@ -1,0 +1,21 @@
+{
+    "name": "RandomForestPiece",
+    "description": "This piece build a ML model based on the Random Forest algorithm",
+    "dependency": {
+        "dockerfile": "Dockerfile_1"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "Random Forest Piece",
+        "icon_class_name": "fa-solid fa-trees"
+    }
+}
