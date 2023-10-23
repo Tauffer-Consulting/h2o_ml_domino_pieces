@@ -6,19 +6,19 @@ from h2o.automl import H2OAutoML
 
 
 class AutoMLPiece(BasePiece):  
-    def piece_function(self, input_model: InputModel):
+    def piece_function(self, input_data: InputModel):
         h2o.init()
 
-        # Get the input_model parameters
-        dataset_file_path = input_model.dataset_file_path
-        categorical_columns = input_model.categorical_columns
-        target_column = input_model.target_column
-        remove_columns = input_model.remove_columns
-        split_percentage = input_model.split_percentage
-        seed = input_model.seed
-        max_models = input_model.max_models
-        max_runtime_secs = input_model.max_runtime_secs
-        leader_model_save_format = input_model.leader_model_save_format.value
+        # Get the input_data parameters
+        dataset_file_path = input_data.dataset_file_path
+        categorical_columns = input_data.categorical_columns
+        target_column = input_data.target_column
+        remove_columns = input_data.remove_columns
+        split_percentage = input_data.split_percentage
+        seed = input_data.seed
+        max_models = input_data.max_models
+        max_runtime_secs = input_data.max_runtime_secs
+        leader_model_save_format = input_data.leader_model_save_format.value
 
         # Import dataset
         try:

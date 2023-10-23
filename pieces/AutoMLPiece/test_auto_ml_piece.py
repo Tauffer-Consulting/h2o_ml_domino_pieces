@@ -1,4 +1,4 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from pathlib import PosixPath
 from typing import List
 
@@ -15,14 +15,11 @@ def run_piece(
 ):
     return piece_dry_run(
   
-    #local piece repository path
-    repository_folder_path="../",
-
     #name of the piece
     piece_name="AutoMLPiece",
 
     #values to the InputModel arguments
-    piece_input={
+    input_data={
         "dataset_file_path": dataset_file_path,
         "target_column": target_column,
         "categorical_columns": categorical_columns,
