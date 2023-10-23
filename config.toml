@@ -3,4 +3,3 @@ REGISTRY_NAME = "giupb"
 REPOSITORY_NAME = "h2o_ml_pieces"
 REPOSITORY_LABEL = "H2O Pieces"
 VERSION = "0.1.2"
- 

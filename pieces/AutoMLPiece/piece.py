@@ -50,10 +50,8 @@ class AutoMLPiece(BasePiece):
         # Train models
         aml.train(x=x, y=y, training_frame=df)
 
-        # Get leader model
-        leader_model = aml.leaderboard['model_id'].as_data_frame()[1][0] if aml.leaderboard['model_id'].as_data_frame()[0][0] == "model_id" else aml.leaderboard['model_id'].as_data_frame()[0][0]
-
         # Save leader model
+        leader_model = 'model'
         if leader_model_save_format == "bin":
             bin_path_file = f"{self.results_path}/{leader_model}_bin"
             mojo_path_file = None
@@ -68,7 +66,7 @@ class AutoMLPiece(BasePiece):
             h2o.save_model(aml.leader, path=bin_path_file)
             aml.leader.download_mojo(path=mojo_path_file)
 
-        # Finally, results should return as an Output model
+        # # Finally, results should return as an Output model
         return OutputModel(
             bin_path_file=bin_path_file,
             mojo_path_file=mojo_path_file

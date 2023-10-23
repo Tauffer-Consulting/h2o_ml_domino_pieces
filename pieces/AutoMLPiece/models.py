@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 from enum import Enum
-from pydantic import FilePath
-from typing import List
+from typing import List, Optional
 
 class SaveFormat(Enum):
     bin = "bin"
@@ -50,11 +49,11 @@ class InputModel(BaseModel):
 
 
 class OutputModel(BaseModel):
-    bin_path_file: FilePath = Field(
+    bin_path_file: Optional[str] = Field(
         default=None,
         description="The path to the bin file"
     )
-    mojo_path_file: FilePath = Field(
+    mojo_path_file: Optional[str] = Field(
         default=None,
         description="The path to the mojo file"
     )
