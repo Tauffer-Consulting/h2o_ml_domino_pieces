@@ -5,9 +5,7 @@
             "dockerfile": "Dockerfile_1",
             "requirements_file": null
         },
-        "tags": [
-            "Example"
-        ],
+        "tags": [],
         "style": {
             "node_label": "AutoML Piece",
             "node_type": "default",
@@ -15,7 +13,7 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fa-solid fa-microchip",
+            "icon_class_name": "fa-solid:microchip",
             "iconStyle": {
                 "cursor": "pointer"
             }
@@ -87,12 +85,12 @@
                     "default": 0,
                     "type": "integer"
                 },
-                "save_leader_model_type": {
+                "leader_model_save_format": {
                     "description": "The file type of model to be saved",
                     "default": "mojo",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/SaveLeaderModelTypes"
+                            "$ref": "#/definitions/SaveFormat"
                         }
                     ]
                 }
@@ -102,8 +100,8 @@
                 "target_column"
             ],
             "definitions": {
-                "SaveLeaderModelTypes": {
-                    "title": "SaveLeaderModelTypes",
+                "SaveFormat": {
+                    "title": "SaveFormat",
                     "description": "An enumeration.",
                     "enum": [
                         "bin",
@@ -120,13 +118,11 @@
                 "bin_path_file": {
                     "title": "Bin Path File",
                     "description": "The path to the bin file",
-                    "format": "file-path",
                     "type": "string"
                 },
                 "mojo_path_file": {
                     "title": "Mojo Path File",
                     "description": "The path to the mojo file",
-                    "format": "file-path",
                     "type": "string"
                 }
             }

@@ -8,6 +8,6 @@
             "AutoMLPiece"
         ],
         "secrets": [],
-        "source_image": "ghcr.io/giupb/h2o_ml_pieces:0.1.0-group0"
+        "source_image": "ghcr.io/giupb/h2o_ml_pieces:0.1.2-group0"
     }
 }
